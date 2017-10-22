@@ -22,7 +22,7 @@ const whereObj = where => Object.keys(where).map(key => `${key} = ? `).join(' AN
 const whereValues = where => (!where || typeof (where) === 'string' ? [] : Object.keys(where).map(key => quoteIfStrOrDate(where[key])))
 
 const handleSoftDelete = where =>
-  (config.mysql_soft_delete === 'true' ?
+  (config.mysql_soft_delete ?
     where.toLowerCase().replace('where', '').trim().length > 0 ?
       `${where} AND ${config.mysql_soft_delete_field} = 0 ` :
       `${config.mysql_soft_delete_field} = 0 ` :
@@ -43,7 +43,7 @@ const sqlValuesPrepared = obj => Object.values(obj).map(_ => '?').join()
 const objectToCreateQuery = (table, obj) => sql.insert(table, sqlFields(obj), sqlValuesPrepared(obj))
 
 const printQuery = (query, vals) => {
-  if (config.mysql_query_debug == 'true') {
+  if (config.mysql_query_debug) {
     console.log([query, vals])
   }
   return query
@@ -107,7 +107,7 @@ export function update(table, updates, where) {
 }
 
 export function _delete(table, where) {
-  if (config.mysql_soft_delete !== 'true') {
+  if (!config.mysql_soft_delete) {
     return getConnection()
       .then(runQuery(sql._delete(table, prepareWhere(where)), whereValues(where)))
   }
