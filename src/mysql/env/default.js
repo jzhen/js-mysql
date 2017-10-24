@@ -10,7 +10,8 @@ const config = {
   mysql_soft_delete_field: 'deleted',
   mysql_query_debug: false,
   mysql_port: 3306,
-  charset: 'utf8'
+  charset: 'utf8',
+  mac: false
 }
 
 /**
