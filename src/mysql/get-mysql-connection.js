@@ -1,5 +1,5 @@
-import * as pool from './get-mysql-pool'
+import pool from './get-mysql-pool'
 
-export default function getConnection(){
+export default function getConnection() {
   return pool.connectionPool.getConnection()
 }

@@ -12,9 +12,9 @@ const makeConfig = (globalConfig = {}) => ({
 
 const dbConfig = makeConfig(config)
 
-if (config.mac === 'true') {
+if (config.mac) {
   dbConfig.socketPath = '/tmp/mysql.sock'
 }
 
 const pool = mysql.createPool(dbConfig)
-export const connectionPool = pool
+export default pool

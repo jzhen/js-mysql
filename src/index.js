@@ -1,3 +1,3 @@
-export * from './mysql/index.js'
-import * as _migration from './migration/index.js'
+export * from './mysql'
+import * as _migration from './migration'
 export const migration = _migration
